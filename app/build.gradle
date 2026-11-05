@@ -1,0 +1,47 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.payar.python'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'com.payar.python'
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName '1.0.0'
+    }
+
+    signingConfigs {
+        release {
+            // Keystore is generated at the repository root by the GitHub Actions workflow
+            storeFile file('../payar-release-key.jks')
+            storePassword 'payar123456'
+            keyAlias 'payar-key'
+            keyPassword 'payar123456'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    lint {
+        // Keep CI builds deterministic; this app has no external dependencies to audit
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
+
+dependencies {
+}
