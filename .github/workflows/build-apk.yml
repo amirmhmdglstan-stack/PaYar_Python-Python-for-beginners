@@ -24,8 +24,10 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+      # NOTE: the android-actions/setup-android step was removed — ubuntu-latest
+      # runners ship with a pre-installed Android SDK (ANDROID_HOME set, licenses
+      # accepted), and the action currently fails on the retired 'tools' package.
+      # AGP auto-installs any missing platform/build-tools via the SDK manager.
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
